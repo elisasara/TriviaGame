@@ -49,6 +49,7 @@ $(document).ready(function () {
 
         qNum = Math.floor(Math.random() * questions.length);
 
+        // if the number is not in the question number array, continue to chooseQuestion function
         if (questionNumber.indexOf(qNum) === -1) {
             chooseQuestion();
             questionNumber.push(qNum);
@@ -56,22 +57,27 @@ $(document).ready(function () {
             console.log(questionNumber);
         }
 
+        // if the length of both arrays match that means there are no more questions to be asked without repeating so run the scorecard function
         else if (questionNumber.length === questions.length) {
-            scoreCard ();
+            scoreCard();
         }
 
+        // if the number is already in the array then rerun the randomNumber function to find one that is not
         else {
             randomNumber();
         }
 
     };
 
-    function chooseQuestion() {;
+    function chooseQuestion() {
+        ;
 
+        // empty out the necessary divs
         $("#correctAnswer").empty();
         $("#correctImage").empty();
         $("#result").empty();
 
+        // reset the time left to 30 seconds
         timeLeft = 30;
 
         // detach the start button
@@ -86,10 +92,11 @@ $(document).ready(function () {
         // display the timer
         $("#timer").html(timeLeft);
 
-        // create buttons for each answer
-        shuffleAnswers ();
+        // run the shuffleAnswers function before creating the buttons
+        shuffleAnswers();
 
-        for (var i=0; i<qChosen.answers.length; i++) {
+        // create buttons for each answer
+        for (var i = 0; i < qChosen.answers.length; i++) {
             var answerButton = $("<button>");
             answerButton.addClass("answer");
             answerButton.attr("value", qChosen.answers[i]);
@@ -97,25 +104,29 @@ $(document).ready(function () {
             $("#answerOptions").append(answerButton);
         }
 
-        // interval for counting down each question
+        // start the interval for counting down each question
         qTimer = setInterval(function () {
             $("#timer").html(timeLeft--);
         }, 1000);
 
-        // after 30 seconds automatically switch to the answer screen
-        timesUp = setTimeout(function (){
+        // start the timeout so that after 30 seconds it automatically runs the displayAnswer function
+        timesUp = setTimeout(function () {
             totalWrong = totalWrong + 1;
             console.log("Total Wrong: " + totalWrong);
             $("#result").html("<h3>Time's Up!</h3>");
-            displayAnswer ();
+            displayAnswer();
         }, 31 * 1000);
 
     };
 
     // function to shuffle the answer array in order to randomize the order in which the answer options show up
     function shuffleAnswers() {
+
         for (var i = 0; i < qChosen.answers.length; i++) {
+            // choose another number between 0 and the length of the answers array
             var j = Math.floor(Math.random() * (i + 1));
+
+            // swith the array items for i and j with each other
             var newPos = qChosen.answers[i];
             qChosen.answers[i] = qChosen.answers[j];
             qChosen.answers[j] = newPos;
@@ -123,6 +134,8 @@ $(document).ready(function () {
     };
 
     function checkCorrect(event) {
+
+        // get the value of the button clicked
         var answerClicked = $(event.target).attr("value");
 
         // if the value of the button clicked is equal to the correct answer
@@ -130,7 +143,7 @@ $(document).ready(function () {
             // add one to the total correct
             totalCorrect = totalCorrect + 1;
 
-            // display Correct in the result div and run display answer
+            // display Right in the result div and run display answer
             $("#result").html("<h3>Right!</h3>");
             displayAnswer();
             console.log("Total Correct: " + totalCorrect);
@@ -139,7 +152,7 @@ $(document).ready(function () {
         // if the value of the button does not match
         else {
             // add one to the total wrong
-            totalWrong = totalWrong +1;
+            totalWrong = totalWrong + 1;
 
             // display Wrong in the result div and run display answer
             $("#result").html("<h3>Wrong!</h3>");
@@ -154,31 +167,59 @@ $(document).ready(function () {
         clearInterval(qTimer);
         clearTimeout(timesUp);
 
-        // update the html where needed
+        // empty out the necessary divs
         $("#question").empty();
         $("#timer").empty();
         $("#answerOptions").empty();
-        $("#correctAnswer").html("The correct answer is <br />" + qChosen.correct);
+
+        // display the correct answer as well as the associate image
+        $("#correctAnswer").html("The correct answer is <strong>" + qChosen.correct + "</strong>");
         $("#correctImage").html(qChosen.image);
 
-        // set timeout to go to next question
+        // set timeout for how long before going to the next question
         setTimeout(randomNumber, 5 * 1000);
     };
 
-    function scoreCard () {
+    // function to show the results at the end of the game
+    function scoreCard() {
+        // empty out the necessary divs
         $("#correctAnswer").empty();
         $("#correctImage").empty();
 
+        // display the results of the game
         $("#result").html("<h3>Your Score:</h3>");
         $("#result").append("Total Correct: " + totalCorrect);
         $("#result").append("<br />Total Wrong: " + totalWrong);
+
+        // create a new button to play again
+        var newGame = $("<button>");
+        newGame.addClass("startNew");
+        newGame.html("Play Again");
+        $("#playAgain").append(newGame);
     };
+
+    // reset function
+    function reset() {
+        questionNumber.length = 0;
+        timeLeft = 30;
+        qChosen = "";
+        qTimer = "";
+        timesUp = "";
+        qNum = ""
+        totalCorrect = 0;
+        totalWrong = 0;
+        $(".startNew").detach();
+        randomNumber();
+    }
 
     // when play game is clicked, game begins
     $("#startButton").on("click", randomNumber);
 
     // when player clicks on an answer run the checkCorrect function
     $(document).on("click", ".answer", checkCorrect);
+
+    // when player clickes to play again, run reset function
+    $(document).on("click", ".startNew", reset);
 
 });
 
