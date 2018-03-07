@@ -32,17 +32,41 @@ var q4 = {
 // create array containing all objects  
 var questions = [q1, q2, q3, q4];
 var asked = [];
+var questionNumber = [];
 var answers = [];
 var timeLeft = 30;
 var qChosen = "";
 // var questionChosen = false;
 var qTimer = "";
 var timesUp = "";
+var qNum = ""
 
 
 $(document).ready(function () {
 
     // function to choose which question in the array will be displayed
+
+    function randomNumber() {
+
+        qNum = Math.floor(Math.random() * questions.length);
+
+        if (questionNumber.indexOf(qNum) === -1) {
+            chooseQuestion();
+            questionNumber.push(qNum);
+            console.log(qNum);
+            console.log(questionNumber);
+        }
+
+        else if (questionNumber.length === questions.length) {
+            scoreCard ();
+        }
+        else {
+            randomNumber();
+        }
+
+    };
+
+    randomNumber();
 
     function chooseQuestion() {
 
@@ -54,58 +78,37 @@ $(document).ready(function () {
 
         timeLeft = 30;
 
-        // choose random number between 0 and the length of the array
-        var qNum = Math.floor(Math.random() * questions.length);
+        // // choose random number between 0 and the length of the array
+        // var qNum = Math.floor(Math.random() * questions.length);
 
         // detach the start button
         $("#startButton").detach();
 
-        if (asked.indexOf(questions[qNum]) < 0) {
+        // if (asked.indexOf(questions[qNum]) < 0) {
 
-            // push that question index of the questions array and add it to the asked array
-            qChosen = questions[qNum];
-            asked.push(qChosen);
+        // push that question index of the questions array and add it to the asked array
+        qChosen = questions[qNum];
+        asked.push(qChosen);
 
-            // display the question  and answers in the appropriate div
-            $("#question").html(qChosen.question);
+        // display the question  and answers in the appropriate div
+        $("#question").html(qChosen.question);
 
-            // display the timer
-            $("#timer").html(timeLeft);
+        // display the timer
+        $("#timer").html(timeLeft);
 
-            // // run the time function
-            // runTimer();
+        // // run the time function
+        // runTimer();
 
-            qTimer = setInterval(function () {
-                $("#timer").html(timeLeft--);
-            }, 1000);
-    
-            timesUp = setTimeout(displayAnswer, 31 * 1000);
+        qTimer = setInterval(function () {
+            $("#timer").html(timeLeft--);
+        }, 1000);
 
-        }
-
-        if (asked.length === questions.length) {
-            scoreCard();
-        }
-
+        timesUp = setTimeout(displayAnswer, 30 * 1000);
 
     };
 
-    chooseQuestion();
-
-    // function to run the timer, on click stop timer
-
-    // function runTimer() {
-    //     timeLeft = 30;
-
-    //     var qTimer = setInterval(function () {
-    //         $("#timer").html(timeLeft--);
-    //     }, 1000);
-
-    //     // if an answer is not chosen after 30 seconds then run the displayAnswer function
-    //     var timesUp = setTimeout(displayAnswer, 31 * 1000);
-
-    //     // if an answer is not chosen after 30 seconds then run the displayAnswer function
-
+    // if (asked.length === questions.length) {
+    //     scoreCard();
     // };
 
     // function to display answer
@@ -121,7 +124,7 @@ $(document).ready(function () {
         $("#correctImage").html(qChosen.image);
 
         // set timeout to go to next question
-        setTimeout(chooseQuestion, 5 * 1000);
+        setTimeout(randomNumber, 5 * 1000);
     };
 
     function scoreCard () {
