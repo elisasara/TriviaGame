@@ -146,8 +146,6 @@ $(document).ready(function () {
         if (questionNumber.indexOf(qNum) === -1) {
             chooseQuestion();
             questionNumber.push(qNum);
-            console.log(qNum);
-            console.log(questionNumber);
         }
 
         // if the length of both arrays match that means there are no more questions to be asked without repeating so run the scorecard function
@@ -196,7 +194,7 @@ $(document).ready(function () {
     function createButtons() {
         for (var i = 0; i < qChosen.answers.length; i++) {
             var answerButton = $("<button>");
-            answerButton.addClass("answer");
+            answerButton.addClass("answer btn btn-block");
             answerButton.attr("value", qChosen.answers[i]);
             answerButton.html(qChosen.answers[i]);
             $("#answerOptions").append(answerButton);
@@ -212,7 +210,6 @@ $(document).ready(function () {
         // start the timeout so that after 30 seconds it automatically runs the displayAnswer function
         timesUp = setTimeout(function () {
             totalWrong = totalWrong + 1;
-            console.log("Total Wrong: " + totalWrong);
             $("#result").html("<h2>Time's Up!</h2>");
             displayAnswer();
         }, 31 * 1000);
@@ -244,7 +241,6 @@ $(document).ready(function () {
             // display Right in the result div and run display answer
             $("#result").html("<h2>Right!</h2>");
             displayAnswer();
-            console.log("Total Correct: " + totalCorrect);
         }
 
         // if the value of the button does not match
@@ -255,7 +251,6 @@ $(document).ready(function () {
             // display Wrong in the result div and run display answer
             $("#result").html("<h2>Wrong!</h2>");
             displayAnswer();
-            console.log("Total Wrong: " + totalWrong);
         }
     }
 
