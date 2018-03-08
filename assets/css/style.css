@@ -1,11 +1,70 @@
 body {
     background-image: url("../../assets/images/oscar.jpg");
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 22px;
 }
 
 .container {
     max-width: 600px;
-    height: 500px;
+    height: 550px;
     background-color: white;
-    margin-top: 100px;
+    margin-top: 30px;
     text-align: center;
+    border-style: ridge;
+    border-width: 5px;
+}
+
+#title {
+    font-family: 'Limelight', cursive;
+    border-bottom: dotted;
+    border-bottom-color: black;
+    border-bottom-width: 4px;
+}
+
+button {
+    width: 150px;
+    height: 50px;
+    border-radius: 6px;
+    background-color: #edd017;
+    font-size: 20px;
+    margin: 50px;
+    border-color: black;
+    border-width: 2px;
+    font-weight: 700;
+}
+
+.answer:hover {
+    background-color: black;
+    color: white;
+    border-color: #edd017;
+    border-width: 2px;
+}
+
+.answer {
+    width: 450px;
+    height: auto;
+    margin: 10px;
+    font-weight: 400;
+}
+
+h2 {
+    font-family: 'Limelight', cursive;
+}
+
+#timer {
+    font-family: 'Limelight', cursive;
+    font-size: 36px;
+    margin-top: 15px;
+}
+
+img {
+    max-height: 250px;
+    width: auto;
+    margin: auto;
+}
+
+#factArea {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-style: italic;
 }
