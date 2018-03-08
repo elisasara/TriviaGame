@@ -271,7 +271,7 @@ $(document).ready(function () {
         $("#factArea").html(qChosen.fact);
 
         // set timeout for how long before going to the next question
-        setTimeout(randomNumber, 7 * 1000);
+        setTimeout(randomNumber, 6 * 1000);
     };
 
     // function to show the results at the end of the game
