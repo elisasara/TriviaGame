@@ -42,7 +42,7 @@ var q5 = {
 }
 
 var q6 = {
-    question: "Who is the oldest person to be nominated for an Academy Award?",
+    question: "Who is the oldest person to be nominated for an Academy Award in the acting or directing categories?",
     answers: ["Clint Eastwood", "Robert Altman", "Woody Allen", "Christopher Plummer"],
     correct: "Christopher Plummer",
     image: "<img src='assets/images/christopherPlummer.jpg' alt='Christopher Plummer'>",
@@ -106,7 +106,7 @@ var q13 = {
 }
 
 var q14 = {
-    question: "Which film series has one more than one Academy Award for Best Picture?",
+    question: "Which film series has won more than one Academy Award for Best Picture?",
     answers: ["Rocky", "James Bond", "The Godfather", "The Lord of The Rings"],
     correct: "The Godfather",
     image: "<img src='assets/images/theGodfather.jpg' alt='The Godfather'>",
