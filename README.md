@@ -2,6 +2,8 @@
 
 ### Test you Oscar knowledge!
 
+Play the game here! https://elisasara.github.io/TriviaGame/
+
 ![Main Screen](/assets/images/mainImage.png)
 
 * Press "Play Game" to start the game.
